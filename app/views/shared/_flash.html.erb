@@ -1,0 +1,10 @@
+<% flash.each do |type, message| %>
+  <% next if message.blank? %>
+  <% is_alert = %w[alert error danger].include?(type.to_s) %>
+  <% panel_classes = is_alert ? "border-rose-200 bg-rose-50 text-rose-900" : "border-sky-200 bg-sky-50 text-sky-900" %>
+  <% dot_classes = is_alert ? "bg-rose-500" : "bg-sky-500" %>
+  <div data-flash-target="message" class="flex items-start gap-3 rounded-xl border px-4 py-3 text-sm font-medium shadow-lg shadow-sky-100 transition duration-300 ease-out <%= panel_classes %>">
+    <div class="mt-1 h-2.5 w-2.5 rounded-full <%= dot_classes %>"></div>
+    <div><%= message %></div>
+  </div>
+<% end %>
