@@ -2,10 +2,16 @@ class ApplicationController < ActionController::Base
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
 
+  include ActionPolicy::Controller
+
   before_action :configure_permitted_parameters, if: :devise_controller?
   layout :layout_by_resource
 
   private
+
+  def authorization_context
+    super.merge(user: current_user.presence || nil)
+  end
 
   def layout_by_resource
     devise_controller? ? "devise" : "application"
