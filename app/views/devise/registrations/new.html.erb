@@ -1,0 +1,63 @@
+<% content_for :title, "Sign up" %>
+
+<div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg shadow-sky-100">
+  <div class="bg-gradient-to-r from-sky-500 to-blue-600 px-6 py-5 text-white">
+    <p class="text-xs font-semibold uppercase tracking-[0.2em]">Join</p>
+    <h1 class="mt-1 text-2xl font-bold">Create your account</h1>
+    <p class="text-sm text-white/80">Start logging your bootcamp progress today.</p>
+  </div>
+
+  <div class="px-6 py-5">
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "space-y-5" }) do |f| %>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div class="space-y-2">
+          <%= f.label :first_name, class: "block text-sm font-semibold text-slate-800" %>
+          <%= f.text_field :first_name, autofocus: true, autocomplete: "given-name", class: "w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/30" %>
+        </div>
+        <div class="space-y-2">
+          <%= f.label :last_name, class: "block text-sm font-semibold text-slate-800" %>
+          <%= f.text_field :last_name, autocomplete: "family-name", class: "w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/30" %>
+        </div>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div class="space-y-2">
+          <%= f.label :username, class: "block text-sm font-semibold text-slate-800" %>
+          <%= f.text_field :username, autocomplete: "username", class: "w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/30" %>
+        </div>
+        <div class="space-y-2">
+          <%= f.label :age, class: "block text-sm font-semibold text-slate-800" %>
+          <%= f.number_field :age, min: 1, class: "w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/30" %>
+        </div>
+      </div>
+      <div class="space-y-2">
+        <%= f.label :email, class: "block text-sm font-semibold text-slate-800" %>
+        <%= f.email_field :email, autocomplete: "email", class: "w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/30" %>
+      </div>
+
+      <div class="space-y-2">
+        <div class="flex items-center justify-between">
+          <%= f.label :password, class: "block text-sm font-semibold text-slate-800" %>
+          <% if @minimum_password_length %>
+            <p class="text-xs text-slate-500">(<%= @minimum_password_length %> characters min)</p>
+          <% end %>
+        </div>
+        <%= f.password_field :password, autocomplete: "new-password", class: "w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/30" %>
+      </div>
+
+      <div class="space-y-2">
+        <%= f.label :password_confirmation, class: "block text-sm font-semibold text-slate-800" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/30" %>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <%= f.submit "Create account", class: "inline-flex items-center justify-center gap-2 rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500" %>
+        <div class="text-sm text-slate-600">
+          <%= render "devise/shared/links" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -42,7 +42,7 @@
     </div>
 
     <div id="comments" class="space-y-3">
-      <% if @post.comments.any? %>
+      <% if @post.comments.count.positive? %>
         <%= render @post.comments.order(created_at: :desc) %>
       <% else %>
         <div id="comments_empty_state" class="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-8 text-center shadow-sm shadow-sky-50">

@@ -11,7 +11,20 @@
     </div>
 
     <div class="flex items-center gap-3">
-      <%= link_to "All posts", posts_path, class: "text-sm font-medium text-slate-700 transition hover:text-sky-700" %>
+      <% if user_signed_in? %>
+        <div class="hidden h-10 items-center gap-3 rounded-xl border border-slate-200 bg-white/80 px-3 py-1.5 shadow-sm shadow-sky-50 sm:flex">
+          <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-sky-50 text-xs font-semibold uppercase tracking-wide text-sky-700">
+            <%= current_user.username.first(2).presence || "U" %>
+          </div>
+          <div class="leading-tight">
+            <p class="text-sm font-semibold text-slate-900"><%= current_user.username %></p>
+            <p class="text-[11px] text-slate-500"><%= current_user.email %></p>
+          </div>
+        </div>
+        <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "hidden rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-sky-200 hover:text-sky-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 sm:inline-flex" %>
+      <% else %>
+        <%= link_to "Log in", new_user_session_path, class: "hidden text-sm font-semibold text-sky-700 transition hover:text-sky-800 sm:inline-flex" %>
+      <% end %>
     </div>
   </div>
 </nav>

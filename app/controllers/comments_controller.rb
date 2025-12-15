@@ -1,11 +1,12 @@
 class CommentsController < ApplicationController
   include ActionView::RecordIdentifier
 
+  before_action :authenticate_user!
   before_action :set_post
   before_action :set_comment, only: :destroy
 
   def create
-    @comment = @post.comments.build(comment_params)
+    @comment = @post.comments.build(comment_params.merge(user: current_user))
 
     respond_to do |format|
       if @comment.save
