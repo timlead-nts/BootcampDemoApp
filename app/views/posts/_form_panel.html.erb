@@ -1,0 +1,16 @@
+<div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm shadow-sky-50">
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <div class="space-y-1">
+      <p class="text-xs font-semibold uppercase tracking-[0.14em] text-sky-600"><%= post.persisted? ? "Edit" : "Create" %></p>
+      <h2 class="text-2xl font-bold text-slate-900"><%= post.persisted? ? "Edit post" : "New post" %></h2>
+      <p class="text-sm text-slate-600"><%= post.persisted? ? "Adjust your update before re-sharing it." : "Capture a quick update from your learning sprint." %></p>
+    </div>
+    <% if post.persisted? %>
+      <%= link_to "Start new", new_post_path, data: { turbo_frame: "post_form" }, class: "inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3.5 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-sky-200 hover:text-sky-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500" %>
+    <% end %>
+  </div>
+
+  <div class="mt-4">
+    <%= render "form", post: post, inline: true %>
+  </div>
+</div>
