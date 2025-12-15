@@ -1,0 +1,7 @@
+<%= turbo_stream.replace dom_id(@post) do %>
+  <%= render "posts/post", post: @post, condensed: true %>
+<% end %>
+<%= turbo_stream.update "post_form" do %>
+  <%= turbo_frame_tag "post_form" do %>
+  <% end %>
+<% end %>

@@ -1,0 +1,29 @@
+<% content_for :title, "Posts" %>
+
+<div class="flex flex-wrap items-center justify-between gap-4">
+  <div class="space-y-1">
+    <p class="text-xs font-semibold uppercase tracking-[0.14em] text-sky-600">Bootcamp log</p>
+    <h1 class="text-3xl font-bold text-slate-900">Posts</h1>
+    <p class="text-sm text-slate-600">Share quick updates from your learning journey.</p>
+  </div>
+  <%= link_to "New post", new_post_path, data: { turbo_frame: "post_form" }, class: "inline-flex items-center gap-2 rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500" %>
+</div>
+
+<div class="mt-6">
+  <%= turbo_frame_tag "post_form" do %>
+  <% end %>
+</div>
+
+<div class="mt-8 space-y-4" id="posts">
+  <% if @posts.any? %>
+    <%= render partial: "post", collection: @posts, locals: { condensed: true } %>
+  <% else %>
+    <div id="empty_posts_state" class="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-8 text-center shadow-sm shadow-sky-50">
+      <p class="text-lg font-semibold text-slate-900">No posts yet</p>
+      <p class="mt-2 text-sm text-slate-600">Start by sharing what you're building or learning today.</p>
+      <div class="mt-4">
+        <%= link_to "Create your first post", new_post_path, data: { turbo_frame: "post_form" }, class: "inline-flex items-center gap-2 rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500" %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,39 @@
+<% inline = local_assigns.fetch(:inline, false) %>
+<% cancel_path = inline ? new_post_path : posts_path %>
+<% cancel_data = inline ? { turbo_frame: "post_form" } : { turbo_frame: "_top" } %>
+
+<%= form_with(model: post, class: "space-y-6") do |form| %>
+  <% if post.errors.any? %>
+    <div class="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-900 shadow-sm">
+      <p class="font-semibold"><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</p>
+      <ul class="mt-2 list-inside list-disc space-y-1">
+        <% post.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="space-y-2">
+    <%= form.label :title, class: "block text-sm font-semibold text-slate-800" %>
+    <%= form.text_field :title, placeholder: "Share a quick headline", class: "w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/30" %>
+  </div>
+
+  <div class="space-y-2">
+    <%= form.label :content, class: "block text-sm font-semibold text-slate-800" %>
+    <%= form.text_area :content, rows: 6, placeholder: "What did you learn or ship today?", class: "w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/30" %>
+  </div>
+
+  <div class="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+    <div>
+      <p class="text-sm font-semibold text-slate-800">Published</p>
+      <p class="text-xs text-slate-600">Toggle on to show this update in the feed.</p>
+    </div>
+    <%= form.check_box :published, class: "h-5 w-5 rounded border-slate-300 text-sky-600 focus:ring-2 focus:ring-sky-500" %>
+  </div>
+
+  <div class="flex flex-wrap items-center gap-3">
+    <%= form.submit(post.persisted? ? "Save changes" : "Create post", class: "inline-flex items-center gap-2 rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500") %>
+    <%= link_to "Cancel", cancel_path, data: cancel_data, class: "inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-sky-200 hover:text-sky-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500" %>
+  </div>
+<% end %>
