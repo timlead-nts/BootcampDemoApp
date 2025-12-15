@@ -13,6 +13,49 @@
   </div>
 </div>
 
-<div class="mt-6 space-y-4">
-  <%= render @post %>
+<div class="mt-6 overflow-hidden rounded-2xl border border-sky-200/70 bg-white shadow-sm shadow-sky-50">
+  <div class="flex flex-wrap items-center justify-between gap-3 bg-gradient-to-r from-blue-50 to-sky-50 px-5 py-4">
+      <span class="inline-flex items-center rounded-full bg-sky-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-sky-700">
+        <%= @post.published? ? "Published" : "Draft" %>
+      </span>
+    <% if @post.updated_at.present? %>
+      <span class="text-xs font-medium text-slate-500">Updated <%= @post.updated_at.strftime("%b %-d, %Y") %></span>
+    <% end %>
+  </div>
+
+  <div class="space-y-4 px-5 py-6">
+    <h2 class="text-xl font-semibold text-slate-900"><%= @post.title.presence || "Untitled post" %></h2>
+    <div class="text-base leading-relaxed text-slate-700">
+      <%= simple_format(@post.content.presence || "No content yet. Share what you're working on.") %>
+    </div>
+  </div>
+</div>
+
+<div class="mt-10 grid gap-6 lg:grid-cols-3">
+  <div class="lg:col-span-2 space-y-4">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-[0.14em] text-sky-600">Comments</p>
+        <h2 class="text-xl font-semibold text-slate-900">What people are saying</h2>
+      </div>
+      <%= render "comments/count_badge", post: @post %>
+    </div>
+
+    <div id="comments" class="space-y-3">
+      <% if @post.comments.any? %>
+        <%= render @post.comments.order(created_at: :desc) %>
+      <% else %>
+        <div id="comments_empty_state" class="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-8 text-center shadow-sm shadow-sky-50">
+          <p class="text-lg font-semibold text-slate-900">No comments yet</p>
+          <p class="mt-2 text-sm text-slate-600">Be the first to drop feedback or encouragement.</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="lg:col-span-1">
+    <%= turbo_frame_tag dom_id(@post, :comment_form) do %>
+      <%= render "comments/form", comment: @comment, post: @post %>
+    <% end %>
+  </div>
 </div>

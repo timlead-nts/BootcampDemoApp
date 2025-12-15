@@ -1,0 +1,29 @@
+<div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm shadow-sky-50">
+  <div class="space-y-1">
+    <p class="text-xs font-semibold uppercase tracking-[0.14em] text-sky-600">Comment</p>
+    <h2 class="text-lg font-semibold text-slate-900">Add a quick note</h2>
+    <p class="text-sm text-slate-600">Share feedback or a takeaway for this update.</p>
+  </div>
+
+  <%= form_with(model: [post, comment], class: "mt-4 space-y-4") do |form| %>
+    <% if comment.errors.any? %>
+      <div class="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-900 shadow-sm">
+        <p class="font-semibold"><%= pluralize(comment.errors.count, "error") %> prevented this comment:</p>
+        <ul class="mt-2 list-inside list-disc space-y-1">
+          <% comment.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="space-y-2">
+      <%= form.label :content, class: "block text-sm font-semibold text-slate-800" %>
+      <%= form.text_area :content, rows: 4, placeholder: "What do you think?", class: "w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-sm transition focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/30" %>
+    </div>
+
+    <div class="flex items-center justify-end">
+      <%= form.submit "Add comment", class: "inline-flex items-center gap-2 rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500" %>
+    </div>
+  <% end %>
+</div>
