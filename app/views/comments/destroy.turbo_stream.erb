@@ -1,0 +1,14 @@
+<%= turbo_stream.remove dom_id(@comment) %>
+
+<%= turbo_stream.replace dom_id(@post, :comment_count) do %>
+  <%= render "comments/count_badge", post: @post %>
+<% end %>
+
+<% unless @post.comments.exists? %>
+  <%= turbo_stream.append "comments" do %>
+    <div id="comments_empty_state" class="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-8 text-center shadow-sm shadow-sky-50">
+      <p class="text-lg font-semibold text-slate-900">No comments yet</p>
+      <p class="mt-2 text-sm text-slate-600">Be the first to drop feedback or encouragement.</p>
+    </div>
+  <% end %>
+<% end %>

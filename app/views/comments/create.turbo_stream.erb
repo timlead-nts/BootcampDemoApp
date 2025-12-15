@@ -1,0 +1,11 @@
+<%= turbo_stream.remove "comments_empty_state" %>
+
+<%= turbo_stream.prepend "comments", partial: "comments/comment", locals: { comment: @comment } %>
+
+<%= turbo_stream.replace dom_id(@post, :comment_count) do %>
+  <%= render "comments/count_badge", post: @post %>
+<% end %>
+
+<%= turbo_stream.update dom_id(@post, :comment_form) do %>
+  <%= render "comments/form", comment: Comment.new, post: @post %>
+<% end %>
