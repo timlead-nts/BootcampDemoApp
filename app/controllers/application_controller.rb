@@ -7,6 +7,11 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   layout :layout_by_resource
 
+  def dom_id(record)
+    ActionView::RecordIdentifier.dom_id(record)
+  end
+
+
   private
 
   def authorization_context

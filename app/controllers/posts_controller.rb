@@ -43,13 +43,7 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.save
         format.html { redirect_to posts_path, notice: "Post was successfully created." }
-        format.turbo_stream do
-          render turbo_stream: [
-            turbo_stream.prepend("flash_container", partial: "shared/flash", locals: { flash: { notice: "Post was successfully created." } }),
-            turbo_stream.prepend("posts", partial: "posts/post", locals: { post: @post, condensed: true }),
-            turbo_stream.update("post_form", partial: "posts/form_panel", locals: { post: Post.new })
-          ]
-        end
+        format.turbo_stream
         format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -66,13 +60,7 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to posts_path, notice: "Post was successfully updated.", status: :see_other }
-        format.turbo_stream do
-          render turbo_stream: [
-            turbo_stream.prepend("flash_container", partial: "shared/flash", locals: { flash: { notice: "Post was successfully updated." } }),
-            turbo_stream.replace(dom_id(@post), partial: "posts/post", locals: { post: @post, condensed: true }),
-            turbo_stream.update("post_form", partial: "posts/form_panel", locals: { post: Post.new })
-          ]
-        end
+        format.turbo_stream
         format.json { render :show, status: :ok, location: @post }
       else
         format.html { render :edit, status: :unprocessable_entity }

@@ -1,7 +1,6 @@
 <%= turbo_stream.remove "empty_posts_state" %>
-
+<%= turbo_stream.prepend("flash_container", partial: "shared/flash", locals: { flash: { notice: "Post was successfully created." } })%>
 <%= turbo_stream.prepend "posts", partial: "posts/post", locals: { post: @post, condensed: true } %>
-
 <%= turbo_stream.update "post_form" do %>
   <%= turbo_frame_tag "post_form" do %>
   <% end %>
