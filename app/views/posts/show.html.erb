@@ -25,6 +25,11 @@
   </div>
 
   <div class="space-y-4 px-5 py-6">
+    <% if @post.cover.attached? && @post.cover.image? %>
+      <div class="overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+        <%= image_tag @post.cover, alt: "#{@post.title.presence || "Post"} cover image", class: "h-64 w-full object-cover", loading: "lazy" %>
+      </div>
+    <% end %>
     <h2 class="text-xl font-semibold text-slate-900"><%= @post.title.presence || "Untitled post" %></h2>
     <div class="text-base leading-relaxed text-slate-700">
       <%= simple_format(@post.content.presence || "No content yet. Share what you're working on.") %>
