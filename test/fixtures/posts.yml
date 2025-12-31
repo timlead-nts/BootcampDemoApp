@@ -4,8 +4,10 @@ one:
   title: MyString
   content: MyText
   published: false
+  user: one
 
 two:
   title: MyString
   content: MyText
   published: false
+  user: two
